@@ -6,8 +6,8 @@
 # `jekyll serve`. If you change this file, please restart the server process.
 
 # Site Settings
-title                    : "Terry"
-description              : "Welcome to Terry's homepage"
+title                    : "Tao"
+description              : "Welcome to Tao's homepage"
 repository               : "HT86159/HT86159.github.io"
 google_scholar_stats_use_cdn : true
 
@@ -21,7 +21,7 @@ google_site_verification : yFNmcs7-wFl-_b1xLhgaixe4CKLVLbHzEyKCt8o8rKg
 
 # Site Author
 author:
-  name             : "Terry (Tao Huang)"
+  name             : "Tao Huang (Terry)"
   avatar           : "images/profile.jpeg"
   bio              : "Ph.D. student in Computer Science at Beijing Jiaotong University, focusing on adversarial examples and multimodal models."
   location         : "Beijing China"
