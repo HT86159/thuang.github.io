@@ -1,0 +1,47 @@
+name: Update Google Scholar Stats
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 8 * * *'  # 每天 08:00 UTC 运行一次
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install scholarly jsonpickle
+
+      - name: Run Google Scholar crawler
+        env:
+          GOOGLE_SCHOLAR_ID: ${{ secrets.GOOGLE_SCHOLAR_ID }}
+        run: |
+          python google_scholar_crawler/main.py
+
+      - name: Commit and push results to google-scholar-stats branch
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+          git fetch origin
+          git switch -c google-scholar-stats || git switch google-scholar-stats
+
+          mkdir -p google-scholar-stats
+          cp results/gs_data_shieldsio.json google-scholar-stats/
+
+          git add google-scholar-stats/gs_data_shieldsio.json
+          git commit -m "Update scholar stats" || echo "No changes to commit"
+          git push origin google-scholar-stats
+
